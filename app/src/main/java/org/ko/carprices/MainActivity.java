@@ -5,8 +5,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,30 @@ public class MainActivity extends ActionBarActivity {
 
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryValues);
         categoriesListView.setAdapter(adapter);
-    }
+
+
+    categoriesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view,
+                                int position, long id) {
+
+            // ListView Clicked item index
+            int itemPosition = position;
+
+            // ListView Clicked item value
+            String itemValue = (String) categoriesListView.getItemAtPosition(position);
+
+            // Show Alert
+            Toast.makeText(getApplicationContext(),
+                    "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                    .show();
+
+        }
+
+    });
+}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
