@@ -24,6 +24,7 @@ public class Prices extends AsyncTask<String, Void,  ArrayList> {
     protected ArrayList doInBackground(String... params) {
         String url = params[0];
         ArrayList prices = new ArrayList();
+
         try{
             Connection.Response res = Jsoup.connect(url).userAgent("Mozilla").execute();
             Document doc = res.parse();

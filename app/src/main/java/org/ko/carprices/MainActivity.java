@@ -1,5 +1,6 @@
 package org.ko.carprices;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,51 +13,54 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity {
     ListView categoriesListView;
-    //String[] categoryValues = new String[100];
-    ArrayList<String> categoryValues = new ArrayList<String>();
+    Map<String, String> categoryMap = new HashMap<String, String>();
+    String url = "http://allegro.pl/samochody-osobowe-4029";
+    ArrayAdapter<String> adapter;
+
+    protected void refreshList(){
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-
-            categoryValues = new Categories().execute().get();
-
+            categoryMap = new Categories().execute(url).get();
         }
         catch(Exception e) {
 
         }
-            categoriesListView = (ListView)findViewById(R.id.categoriesListView);
-
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryValues);
+        List<String> categoryList = keysAsList(categoryMap);
+        categoriesListView = (ListView)findViewById(R.id.categoriesListView);
+        adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryList);
         categoriesListView.setAdapter(adapter);
 
 
     categoriesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view,
-                                int position, long id) {
-
-            // ListView Clicked item index
-            int itemPosition = position;
-
-            // ListView Clicked item value
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String itemValue = (String) categoriesListView.getItemAtPosition(position);
-
-            // Show Alert
-            Toast.makeText(getApplicationContext(),
-                    "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                    .show();
+            String[] params = new String[2];
+            url = "http://allegro.pl"+categoryMap.get(itemValue).toString();
+            String name = itemValue;
+            Intent startModelActivityIntent = new Intent(MainActivity.this, CarModelActivity.class);
+            startModelActivityIntent.putExtra("url",url);
+            startModelActivityIntent.putExtra("name",name);
+            MainActivity.this.startActivity(startModelActivityIntent);
 
         }
 
     });
 }
+
 
 
     @Override
@@ -81,6 +85,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    private static List<String> keysAsList(Map<String, String> map) {
+        List<String> list = new ArrayList<String>(map.keySet());
+        return list;
+    }
 
 }

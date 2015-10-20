@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.ko.carprices" >
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +17,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CarModelActivity"
+            android:label="@string/title_activity_car_model"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ko.carprices.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CarGenerationsActivity"
+            android:label="@string/title_activity_car_generations"
+            android:parentActivityName=".CarModelActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ko.carprices.CarModelActivity" />
+        </activity>
+        <activity
+            android:name=".PriceDetailsActivity"
+            android:label="@string/title_activity_price_details"
+            android:parentActivityName=".CarGenerationsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.ko.carprices.CarGenerationsActivity" />
         </activity>
     </application>
 
