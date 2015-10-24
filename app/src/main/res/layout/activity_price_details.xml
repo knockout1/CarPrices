@@ -12,6 +12,7 @@
         android:id="@+id/averagepriceTextView" />
 
     <TextView
+        android:text="minimal Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/minPriceTextView"
@@ -20,6 +21,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
+        android:text="maximal Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/maxPriceTextView"
@@ -27,5 +29,24 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="42dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of offres"
+        android:id="@+id/numberOfOffers"
+        android:layout_below="@+id/maxPriceTextView"
+        android:layout_alignRight="@+id/minPriceTextView"
+        android:layout_alignEnd="@+id/minPriceTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mediana"
+        android:id="@+id/mediana"
+        android:layout_below="@+id/numberOfOffers"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
 
 </RelativeLayout>
